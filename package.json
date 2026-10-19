@@ -1,0 +1,17 @@
+{
+  "name": "talonario-digital",
+  "version": "1.0.0",
+  "description": "Talonario digital para control de números elegidos (sin pagos). Netlify + Netlify Blobs.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx netlify-cli dev",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

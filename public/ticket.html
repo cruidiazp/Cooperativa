@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ticket digital</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="ticket-page">
+  <div class="ticket-top">
+    <h1 id="title">Ticket digital</h1>
+    <small id="date"></small>
+  </div>
+  <main class="ticket" id="ticket">
+    <p id="loading">Cargando ticket…</p>
+  </main>
+  <div class="ticket-actions no-print">
+    <button class="btn" id="printBtn" hidden>Guardar / imprimir</button>
+    <a class="btn ghost" href="/" style="text-decoration:none">Volver al talonario</a>
+  </div>
+  <script type="module" src="/js/ticket.js"></script>
+</body>
+</html>

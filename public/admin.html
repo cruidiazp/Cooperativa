@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Administración · Talonario</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="admin">
+  <!-- Acceso -->
+  <section id="loginView" class="card login-box">
+    <h2>Administración</h2>
+    <p class="fine">Escribe la contraseña del organizador.</p>
+    <form id="loginForm">
+      <label for="pw">Contraseña</label>
+      <input type="password" id="pw" autocomplete="current-password" required>
+      <div class="error" id="loginErr" role="alert"></div>
+      <button class="btn block" type="submit">Entrar</button>
+    </form>
+    <p class="fine" style="margin-top:14px"><a href="/">← Ir al talonario público</a></p>
+  </section>
+
+  <!-- Panel -->
+  <div id="appView" hidden>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="logo" id="logo"></div>
+        <div class="grow"><h1 id="adminTitle">Administración</h1><div class="date">Panel del organizador</div></div>
+        <a class="btn ghost small" href="/" target="_blank" rel="noopener" style="text-decoration:none">Ver público</a>
+        <button class="btn ghost small" id="logoutBtn">Salir</button>
+      </div>
+    </header>
+
+    <div class="admin-wrap">
+      <div class="stats">
+        <div class="card stat-card"><b id="aTotal">–</b><span>Total de números</span></div>
+        <div class="card stat-card"><b id="aTaken">–</b><span>Tomados</span></div>
+        <div class="card stat-card"><b id="aFree">–</b><span>Disponibles</span></div>
+        <div class="card stat-card"><b id="aPeople">–</b><span>Personas</span></div>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="numbers">Números</button>
+        <button class="tab" data-tab="people">Participantes</button>
+        <button class="tab" data-tab="settings">Configuración</button>
+      </div>
+
+      <!-- Números -->
+      <section class="card panel" id="tab-numbers">
+        <div class="picker-head">
+          <h3>Mapa de números</h3>
+          <div class="legend">
+            <span><i class="l-free"></i>Libre</span>
+            <span><i class="l-adm"></i>Tomado</span>
+          </div>
+        </div>
+        <p class="fine" style="margin-top:0">Toca un número libre para asignarlo a alguien, o uno tomado para ver sus datos y liberarlo.</p>
+        <div class="grid admin" id="adminGrid"></div>
+      </section>
+
+      <!-- Participantes -->
+      <section class="card panel" id="tab-people" hidden>
+        <div class="toolbar">
+          <h3 style="margin:0">Participantes</h3>
+          <input type="text" id="search" placeholder="Buscar por nombre, teléfono o número…">
+          <span class="grow"></span>
+          <button class="btn ghost small" id="csvBtn">Descargar CSV</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Nombre</th><th>Teléfono</th><th>Números</th><th>Fecha</th><th></th></tr></thead>
+            <tbody id="peopleBody"></tbody>
+          </table>
+        </div>
+        <div class="empty" id="peopleEmpty" hidden>Todavía no hay participantes.</div>
+      </section>
+
+      <!-- Configuración -->
+      <section class="card panel" id="tab-settings" hidden>
+        <h3>Configuración del talonario</h3>
+        <form id="cfgForm">
+          <label for="cTitle">Título</label>
+          <input type="text" id="cTitle" maxlength="80" required>
+          <label for="cDesc">Descripción</label>
+          <textarea id="cDesc" maxlength="600" placeholder="Premio, reglas, cómo se hará el sorteo…"></textarea>
+          <label for="cImg">Imagen (URL, opcional)</label>
+          <input type="url" id="cImg" maxlength="500" placeholder="https://…">
+          <div class="two">
+            <div><label for="cDate">Fecha del sorteo</label><input type="date" id="cDate"></div>
+            <div><label for="cContact">Contacto del organizador</label><input type="text" id="cContact" maxlength="120" placeholder="WhatsApp, correo…"></div>
+          </div>
+          <div class="two">
+            <div><label for="cMax">Último número (empieza en 00)</label><input type="number" id="cMax" min="9" max="999" required></div>
+            <div><label for="cPer">Máx. números por persona (0 = sin límite)</label><input type="number" id="cPer" min="0" max="1000" required></div>
+          </div>
+          <label class="check"><input type="checkbox" id="cOpen"> Talonario abierto (las personas pueden elegir números)</label>
+          <div class="error" id="cfgErr" role="alert"></div>
+          <button class="btn" type="submit">Guardar cambios</button>
+        </form>
+
+        <div class="danger-zone">
+          <h3>Zona de cuidado</h3>
+          <p class="fine" style="margin-top:0">Reiniciar borra TODOS los números tomados y los tickets. Descarga el CSV antes si quieres conservar el registro.</p>
+          <button class="btn danger small" id="resetBtn">Reiniciar talonario</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Detalle / asignar -->
+  <dialog id="dlg">
+    <div class="dlg" id="dlgBody"></div>
+  </dialog>
+
+  <script type="module" src="/js/admin.js"></script>
+</body>
+</html>

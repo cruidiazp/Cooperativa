@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talonario digital</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="logo" id="logo"></div>
+      <div class="grow">
+        <h1 id="title">Cargando…</h1>
+        <div class="date" id="date"></div>
+      </div>
+      <div class="progress" aria-label="Progreso">
+        <div class="bar"><span id="barFill"></span></div>
+        <small id="pct">0%</small>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="card" id="info">
+      <div class="hero-head">Talonario</div>
+      <div class="hero-body">
+        <img id="heroImg" alt="" hidden>
+        <h2 id="heroTitle"></h2>
+        <p id="heroDesc"></p>
+        <div class="chips" id="chips"></div>
+        <div class="notice">Aquí solo se registran los números elegidos. No se realizan pagos en esta página.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="closed-banner" id="closed" hidden>El talonario está cerrado por ahora. No se pueden elegir más números.</div>
+      <div class="picker-head">
+        <h2>¡ESCOGE TUS NÚMEROS!</h2>
+        <div class="legend">
+          <span><i class="l-free"></i>Libre</span>
+          <span><i class="l-sel"></i>Tuyo</span>
+          <span><i class="l-taken"></i>Tomado</span>
+        </div>
+      </div>
+      <div class="grid" id="grid" role="group" aria-label="Números disponibles"></div>
+    </section>
+  </main>
+
+  <div class="actionbar">
+    <button class="btn round ghost" id="clearBtn" title="Quitar selección" aria-label="Quitar selección" hidden>🗑</button>
+    <button class="btn float" id="randomBtn">🎲 Seleccionar al azar</button>
+    <button class="btn take" id="takeBtn" disabled>Tomar números (0)</button>
+  </div>
+
+  <footer class="statbar">
+    <div class="stat"><b id="sFree">–</b><span>Disponibles</span></div>
+    <div class="stat"><b id="sTaken">–</b><span>Tomados</span></div>
+    <div class="stat"><b id="sDraw">–</b><span>Sorteo</span></div>
+  </footer>
+
+  <dialog id="dlg">
+    <form class="dlg" id="form" method="dialog">
+      <div class="dlg-head"><h3>Participar</h3><button type="button" class="x" id="closeDlg" aria-label="Cerrar">×</button></div>
+      <div class="picked" id="picked"></div>
+      <label for="name">Nombre</label>
+      <input type="text" id="name" maxlength="60" autocomplete="name" required placeholder="Tu nombre completo">
+      <label for="phone">Teléfono de contacto</label>
+      <input type="tel" id="phone" maxlength="25" autocomplete="tel" required placeholder="Ej: 300 123 4567">
+      <p class="fine" id="fineMsg">Guardaremos tu nombre y teléfono solo para que el organizador pueda contactarte.</p>
+      <div class="error" id="err" role="alert"></div>
+      <button class="btn block" id="submitBtn" type="submit">Aceptar y continuar</button>
+    </form>
+  </dialog>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
