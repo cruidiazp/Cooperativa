@@ -296,7 +296,8 @@ export function createHandler({ store, env = process.env }) {
     } catch (err) {
       if (err instanceof HttpError) return json(err.status, { error: err.message, ...err.extra });
       console.error(err);
-      return json(500, { error: "Error interno del servidor." });
+      // "detail" ayuda a diagnosticar problemas de despliegue; es solo el mensaje técnico.
+      return json(500, { error: "Error interno del servidor.", detail: `${err?.name || "Error"}: ${String(err?.message || err).slice(0, 300)}` });
     }
   };
 }
