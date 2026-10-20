@@ -1,9 +1,6 @@
 import { getStore } from "@netlify/blobs";
 import { createHandler } from "./lib/handler.mjs";
 
-// "strong" asegura que, justo después de elegir un número, todos lo vean ocupado.
-const store = getStore({ name: "talonario", consistency: "strong" });
-
 // Lee las variables de entorno de Netlify de las dos formas posibles
 // (Netlify.env en funciones modernas, process.env como respaldo).
 const read = (name) => {
@@ -19,6 +16,13 @@ const env = {
   get TOKEN_SECRET() { return read("TOKEN_SECRET"); },
 };
 
-export default createHandler({ store, env });
+// IMPORTANTE: la conexión a Blobs se crea en CADA petición. Netlify entrega un token
+// temporal por invocación; si se guardara al arrancar, vencería ("Token expired").
+export default async (req) => {
+  // "strong" asegura que, justo después de elegir un número, todos lo vean ocupado.
+  const store = getStore({ name: "talonario", consistency: "strong" });
+  return createHandler({ store, env })(req);
+};
 
 export const config = { path: "/api/*" };
+
